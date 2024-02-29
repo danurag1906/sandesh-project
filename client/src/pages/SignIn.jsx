@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   const handleChange = (e) => {
@@ -16,10 +16,10 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Add your sign-in logic here
-    const res = await fetch('/api/signin', {
-      method: 'POST',
+    const res = await fetch("/api/signin", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
     });
@@ -33,19 +33,25 @@ const SignIn = () => {
       // Successful sign-in, perform actions such as redirecting
 
       // console.log('Sign-in successful');
-      localStorage.setItem('token',data.token)
-      navigate('/home')
+      localStorage.setItem("token", data.token);
+      navigate("/home");
     } else {
       // Failed sign-in, show an error message
-      console.error('Sign-in failed');
+      console.error("Sign-in failed");
     }
   };
 
   return (
     <div className="max-w-md mx-auto mt-8">
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      >
         <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
+          <label
+            htmlFor="email"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
             Email:
           </label>
           <input
@@ -61,7 +67,10 @@ const SignIn = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
+          <label
+            htmlFor="password"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
             Password:
           </label>
           <input

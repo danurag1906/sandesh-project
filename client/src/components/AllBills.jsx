@@ -7,7 +7,7 @@ export default function AllBills() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     billno: "",
@@ -62,8 +62,9 @@ export default function AllBills() {
     try {
       const res = await fetch("/api/getAllBills");
       const resData = await res.json();
+      const reversedBills = resData.data.reverse();
       // console.log(resData.data);
-      setAllBills(resData.data);
+      setAllBills(reversedBills);
     } catch (error) {
       console.log(error);
     }
@@ -77,10 +78,10 @@ export default function AllBills() {
     fetchAllBills();
   };
 
-  const handleSignOut=()=>{
-    localStorage.removeItem('token')
-    navigate('/signin')
-  }
+  const handleSignOut = () => {
+    localStorage.removeItem("token");
+    navigate("/signin");
+  };
 
   return (
     <div className="flex mx-auto mt-8">
@@ -172,20 +173,19 @@ export default function AllBills() {
           </button>
         </form>
         {error && <p className="bg-red-700 mt-5">{error}</p>}
-        <button onClick={handleSignOut} className="bg-green-600 p-3 m-3 ml-10 rounded-md font-bold" >Sign out</button>
+        <button
+          onClick={handleSignOut}
+          className="bg-green-600 p-3 m-3 ml-10 rounded-md font-bold"
+        >
+          Sign out
+        </button>
       </div>
-
-      
 
       <div className="md:w-2/3  absolute right-0 ">
         <div>
           {filteredBills.length > 0 &&
             filteredBills.map((bill) => (
-              <EachBill
-                key={bill._id}
-                bill={bill}
-                onDelete={handleBillDelete}
-              />
+              <EachBill key={bill.id} bill={bill} onDelete={handleBillDelete} />
             ))}
         </div>
       </div>

@@ -9,8 +9,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/signup" element={<SignUp/>}  /> */}
-        <Route path="/signin" element={<SignIn/>}  />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/home" element={<Home />} />
         <Route path="/updateBill/:id" element={<UpdateBill />} />
       </Routes>

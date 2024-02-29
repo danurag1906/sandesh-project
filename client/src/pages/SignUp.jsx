@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
   });
 
   const handleChange = (e) => {
@@ -16,30 +15,35 @@ const SignUp = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Add your sign-up logic here
-    const res=await fetch('/api/signup',{
-        method:'POST',
-        headers:{
-            'Content-Type':'application/json',
-        },
-        body:JSON.stringify(formData)
-    })
+    const res = await fetch("/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
 
-    const data=await res.json()
-    if(data.success==true){
-      navigate('/signin')
+    const data = await res.json();
+    if (data.success == true) {
+      navigate("/signin");
     }
-    console.log(data);
-
+    // console.log(data);
   };
 
   return (
     <div className="max-w-md mx-auto mt-8">
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      >
         <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
+          <label
+            htmlFor="name"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
             Name:
           </label>
           <input
@@ -55,7 +59,10 @@ const SignUp = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
+          <label
+            htmlFor="email"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
             Email:
           </label>
           <input
@@ -71,7 +78,10 @@ const SignUp = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
+          <label
+            htmlFor="password"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
             Password:
           </label>
           <input

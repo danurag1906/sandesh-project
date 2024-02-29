@@ -1,16 +1,15 @@
 // FormComponent.jsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const BillForm = () => {
-
-    const [loading,setLoading]=useState(false)
-    const [error,setError]=useState(null)
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [formData, setFormData] = useState({
-    billno: '',
-    companyname: '',
-    amount: '',
+    billno: "",
+    companyname: "",
+    amount: "",
   });
 
   const handleChange = (e) => {
@@ -18,43 +17,46 @@ const BillForm = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // You can handle form submission logic here
-    setLoading(true)
+    setLoading(true);
     // setError(false)
 
     try {
-        const res=await fetch('/api/createBill',{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json',
-            },
-            body:JSON.stringify(formData)
-        })
-        const data=await res.json()
-        // console.log(data);
-        if(data.success==false){
-            setError(data.message)
-            setLoading(false)
-        }
-        setError(null)
-        setLoading(false)
-        // console.log('Form submitted:', formData);
+      const res = await fetch("/api/createBill", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      // console.log(data);
+      if (data.success == false) {
+        setError(data.message);
+        setLoading(false);
+      }
+      setError(null);
+      setLoading(false);
+      // console.log('Form submitted:', formData);
     } catch (error) {
-        setLoading(false)
-        setError(error)
+      setLoading(false);
+      setError(error);
     }
-
-
   };
 
   return (
     <div className="container mx-auto mt-8">
-      <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-slate-200 p-8 shadow-md rounded-md">
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-md mx-auto bg-slate-200 p-8 shadow-md rounded-md"
+      >
         <div className="mb-4">
-          <label htmlFor="billno" className="block text-gray-700 text-sm font-bold mb-2">
+          <label
+            htmlFor="billno"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
             Bill No:
           </label>
           <input
@@ -70,7 +72,10 @@ const BillForm = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="companyname" className="block text-gray-700 text-sm font-bold mb-2">
+          <label
+            htmlFor="companyname"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
             Company Name:
           </label>
           <input
@@ -86,7 +91,10 @@ const BillForm = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="amount" className="block text-gray-700 text-sm font-bold mb-2">
+          <label
+            htmlFor="amount"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
             Amount:
           </label>
           <input
@@ -101,12 +109,15 @@ const BillForm = () => {
           />
         </div>
 
-        <button disabled={loading} type="submit" className="bg-blue-500 text-white p-2 rounded-md">
-          {loading?'Creating...':'Create'} 
+        <button
+          disabled={loading}
+          type="submit"
+          className="bg-blue-500 text-white p-2 rounded-md"
+        >
+          {loading ? "Creating..." : "Create"}
         </button>
-        
       </form>
-      {error && <p className='bg-red-700 mt-5' >{error}</p>}
+      {error && <p className="bg-red-700 mt-5">{error}</p>}
     </div>
   );
 };
